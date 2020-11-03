@@ -2,6 +2,20 @@
 
 ## Klient gry w Texas Hold'em
 
+<details><summary>projekt realizowany przez:</summary>
+<p>
+  
+```txt
+- Kamil Poniewierski
+- Jakub Węgrecki
+- Jakub Zaręba
+- Baldan-Ochir Dorjjugder
+- Rinchyen Bayarsaikhan
+```
+
+</p>
+</details>
+
 ### Cele
 
 Celem projektu jest stworzenie klienta do gry w pokera, w wariancie **Texas Hold'em**
