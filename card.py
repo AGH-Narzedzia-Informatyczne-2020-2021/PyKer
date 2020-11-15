@@ -7,6 +7,16 @@ class Suit(Enum):
     CLUBS = 2
     SPADES = 3
 
+    def to_unicode(self):
+        if self == Suit.HEARTS:
+            return '♥'
+        if self == Suit.DIAMONDS:
+            return '♦'
+        if self == Suit.CLUBS:
+            return '♣'
+        if self == Suit.SPADES:
+            return '♠'
+
 
 class Rank(Enum):
     ACE = 14
@@ -23,6 +33,12 @@ class Rank(Enum):
     THREE = 3
     TWO = 2
 
+    def to_short_string(self):
+        if self.value <= 10:
+            return str(self.value)
+        else:
+            return str(self).split('.')[1][0]
+
 
 class Card:
     def __init__(self, suit: Suit, rank: Rank):
@@ -34,4 +50,4 @@ class Card:
         self.rank = rank
 
     def __str__(self):
-        return str(self.rank).split('.')[1] + ' OF ' + str(self.suit).split('.')[1]
+        return str(self.rank.to_short_string()) + str(self.suit.to_unicode())
