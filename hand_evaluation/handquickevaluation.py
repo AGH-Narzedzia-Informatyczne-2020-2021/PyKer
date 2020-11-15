@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Hand(Enum):
+class HandQuickEvaluation(Enum):
     ROYAL_FLUSH = 10
     STRAIGHT_FLUSH = 9
     FOUR_OF_A_KIND = 8

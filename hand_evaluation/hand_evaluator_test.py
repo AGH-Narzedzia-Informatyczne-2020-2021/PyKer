@@ -1,14 +1,14 @@
 import unittest
 
 from card import *
-from hand_evaluation.hand import Hand
+from hand_evaluation.handquickevaluation import HandQuickEvaluation
 from hand_evaluation.hand_evaluator import HandEvaluator
 
 
 class MyTestCase(unittest.TestCase):
     def test_find_pair(self):
         hand_one = [Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.TEN)]
-        self.assertEqual(HandEvaluator.value_hand(hand_one).hand, Hand.ONE_PAIR)
+        self.assertEqual(HandEvaluator.value_hand(hand_one).quick_eval, HandQuickEvaluation.ONE_PAIR)
 
     def test_pair_is_equal(self):
         hand_one = [Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.TEN)]
