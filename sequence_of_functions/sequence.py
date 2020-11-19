@@ -3,8 +3,8 @@
 #kolejność ludzi (i botów) zmieniająca się w kolejnych rundach
 #pulę pieniędzy
 
-from player_class.py import Gracze
-from player_class.py import Boty
+from player_class.py import Players
+from player_class.py import Bots
 
 #roboczo tablicami, jeśli będziemy robić to obiektowo to się przerobi
 karty[8][2]; #[liczba graczy][karty ludzi - oznczenie od 2 do 15 np][kolor karty]
@@ -12,11 +12,11 @@ stol[6][2]; #karty wylosowane na stół, [wartość 0 - nie ma tej karty jeszcze
 
 def if_amount_same(): #spr czy każdy ma tyle samo obstawione, wtedy przechodzi do kolejnej rundy - liczba kart na stole ++ v koniec gry i sprawdzenie kto wygrał
 
-player = Gracze()
+player = Players()
 
 for x in range(7):
     bot.append(0)
-    bot[nr] = Boty()
+    bot[nr] = Bots()
     nr += 1
 
 rand_deck() #wylosowanie dla każdego gracza 2 kart i 3 kart na stół
