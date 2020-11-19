@@ -3,8 +3,7 @@
 #kolejność ludzi (i botów) zmieniająca się w kolejnych rundach
 #pulę pieniędzy
 
-from player_class.py import Players
-from player_class.py import Bots
+from sequence_of_functions.player_class import Players, Bots
 
 #roboczo tablicami, jeśli będziemy robić to obiektowo to się przerobi
 karty[8][2]; #[liczba graczy][karty ludzi - oznczenie od 2 do 15 np][kolor karty]
