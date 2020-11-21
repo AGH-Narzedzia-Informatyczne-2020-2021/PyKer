@@ -14,6 +14,9 @@ class HandEvaluator:
         if HandEvaluator.check_for_pair(hand):
             quick_eval = HandQuickEvaluation.ONE_PAIR
 
+        if HandEvaluator.check_for_two_pair(hand):
+            quick_eval = HandQuickEvaluation.TWO_PAIR
+
         if HandEvaluator.check_for_straight(hand):
             quick_eval = HandQuickEvaluation.STRAIGHT
 
@@ -26,14 +29,22 @@ class HandEvaluator:
         return Evaluation(quick_eval, hand)
 
     @staticmethod
-    def check_for_pair(hand: List[Card]):
+    def count_pairs(hand: List[Card]):
         counts = {}
         for card in hand:
             if not counts.__contains__(card.rank):
                 counts[card.rank] = 0
             counts[card.rank] += 1
+        pair_count = len(list(filter(lambda x: x >= 2, counts.values())))
+        return pair_count
 
-        return len(list(filter(lambda x: x >= 2, counts.values()))) > 0
+    @staticmethod
+    def check_for_pair(hand: List[Card]):
+        return HandEvaluator.count_pairs(hand) == 1
+
+    @staticmethod
+    def check_for_two_pair(hand: List[Card]):
+        return HandEvaluator.count_pairs(hand) == 2
 
     @staticmethod
     def check_for_straight(hand: List[Card]) -> bool:

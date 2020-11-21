@@ -23,6 +23,9 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(HandEvaluator.value_hand(hand_one).quick_eval, HandEvaluator.value_hand(hand_two).quick_eval)
 
     # Two Pair
+    def test_two_pair(self):
+        hand = list_to_cards(['Ah', 'Ac', '10c', '10s', '2d', '5d'])
+        self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.TWO_PAIR)
 
     # Three of a kind
 
