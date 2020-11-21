@@ -16,6 +16,7 @@ class MyTestCase(unittest.TestCase):
     def test_pair(self):
         hand = list_to_cards(['Ah', 'Kc', 'Ad', '9h', '4c'])
         self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.ONE_PAIR)
+        self.assertEqual(HandEvaluator.value_hand(one_pair).quick_eval, HandQuickEvaluation.ONE_PAIR)
 
     def test_pair_is_equal(self):
         hand_one = list_to_cards(['10h', '10s'])
@@ -26,6 +27,7 @@ class MyTestCase(unittest.TestCase):
     def test_two_pair(self):
         hand = list_to_cards(['Ah', 'Ac', '10c', '10s', '2d', '5d'])
         self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.TWO_PAIR)
+        self.assertEqual(HandEvaluator.value_hand(two_pair).quick_eval, HandQuickEvaluation.TWO_PAIR)
 
     # Three of a kind
     def test_three_of_a_kind(self):
@@ -34,19 +36,13 @@ class MyTestCase(unittest.TestCase):
 
     # Straight
     def test_find_straight(self):
-        self.assertTrue(HandEvaluator.check_for_straight(straight))
-        self.assertTrue(HandEvaluator.check_for_straight(straight_flush))
-
-    def test_find_no_straight(self):
-        self.assertFalse(HandEvaluator.check_for_straight(flush))
+        straight = list_to_cards(['10d', '9h', '8c', '7s', '6c', 'Ad'])
+        self.assertEqual(HandEvaluator.value_hand(straight).quick_eval, HandQuickEvaluation.STRAIGHT)
 
     # Flush
     def test_find_flush(self):
-        self.assertTrue(HandEvaluator.check_for_flush(flush))
-        self.assertTrue(HandEvaluator.check_for_flush(straight_flush))
-
-    def test_check_if_not_flush(self):
-        self.assertFalse(HandEvaluator.check_for_flush(straight))
+        flush = list_to_cards(['10s', 'As', 'Ks', '2s', '5s', 'Qd', '3d'])
+        self.assertEqual(HandEvaluator.value_hand(flush).quick_eval, HandQuickEvaluation.FLUSH)
 
     # Full House
     def test_full_house(self):
@@ -81,16 +77,8 @@ def list_to_cards(card_list):
     return list(map(str_to_card, card_list))
 
 
-straight_flush = list_to_cards(['10s', '8s', '9s', 'Js', 'Qs'])
-
-flush = list_to_cards(['10s', 'As', 'Ks', '2s', '5s', 'Qd', '3d'])
-
-straight = list_to_cards(['10d', '9h', '8c', '7s', '6c', 'Ad'])
-
 one_pair = list_to_cards(['8s', '8d', 'Ad', 'Jc'])
 
 two_pair = one_pair.__add__([Card(string='Ah')])
 
 full_house = two_pair.__add__([Card(string='As')])
-
-high_card = list_to_cards(['Ad', 'Qh', '10c', '2d', '5d'])
