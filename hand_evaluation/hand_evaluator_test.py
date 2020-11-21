@@ -28,9 +28,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.TWO_PAIR)
 
     # Three of a kind
+    def test_three_of_a_kind(self):
+        hand = list_to_cards(['Ah', 'Ac', 'Ah', '10c', '4h', '3c'])
+        self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.THREE_OF_A_KIND)
 
     # Straight
-
     def test_find_straight(self):
         self.assertTrue(HandEvaluator.check_for_straight(straight))
         self.assertTrue(HandEvaluator.check_for_straight(straight_flush))
@@ -39,7 +41,6 @@ class MyTestCase(unittest.TestCase):
         self.assertFalse(HandEvaluator.check_for_straight(flush))
 
     # Flush
-
     def test_find_flush(self):
         self.assertTrue(HandEvaluator.check_for_flush(flush))
         self.assertTrue(HandEvaluator.check_for_flush(straight_flush))
@@ -51,6 +52,9 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(HandEvaluator.check_for_straight_flush(straight_flush))
 
     # Four of a kind
+    def test_find_four_of_a_kind(self):
+        hand = list_to_cards(['Ah', 'Ad', 'Ac', 'As', 'Ks', '9s', '2h'])
+        self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.FOUR_OF_A_KIND)
 
 
 if __name__ == '__main__':

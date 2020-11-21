@@ -17,6 +17,9 @@ class HandEvaluator:
         if HandEvaluator.check_for_two_pair(hand):
             quick_eval = HandQuickEvaluation.TWO_PAIR
 
+        if HandEvaluator.check_for_three_of_a_kind(hand):
+            quick_eval = HandQuickEvaluation.THREE_OF_A_KIND
+
         if HandEvaluator.check_for_straight(hand):
             quick_eval = HandQuickEvaluation.STRAIGHT
 
@@ -26,17 +29,24 @@ class HandEvaluator:
         if HandEvaluator.check_for_straight_flush(hand):
             quick_eval = HandQuickEvaluation.STRAIGHT_FLUSH
 
+        if HandEvaluator.check_for_four_of_a_kind(hand):
+            quick_eval = HandQuickEvaluation.FOUR_OF_A_KIND
+
         return Evaluation(quick_eval, hand)
 
     @staticmethod
-    def count_pairs(hand: List[Card]):
+    def count_multiple(hand, filter_method):
         counts = {}
         for card in hand:
             if not counts.__contains__(card.rank):
                 counts[card.rank] = 0
             counts[card.rank] += 1
-        pair_count = len(list(filter(lambda x: x >= 2, counts.values())))
+        pair_count = len(list(filter(filter_method, counts.values())))
         return pair_count
+
+    @staticmethod
+    def count_pairs(hand: List[Card]):
+        return HandEvaluator.count_multiple(hand, lambda x: x >= 2)
 
     @staticmethod
     def check_for_pair(hand: List[Card]):
@@ -45,6 +55,10 @@ class HandEvaluator:
     @staticmethod
     def check_for_two_pair(hand: List[Card]):
         return HandEvaluator.count_pairs(hand) == 2
+
+    @staticmethod
+    def check_for_three_of_a_kind(hand: List[Card]):
+        return HandEvaluator.count_multiple(hand, lambda x: x >= 3)
 
     @staticmethod
     def check_for_straight(hand: List[Card]) -> bool:
@@ -90,3 +104,7 @@ class HandEvaluator:
 
         only_suit_cards = list(filter(lambda e: e.suit == suit, sorted_by_suit))
         return HandEvaluator.check_for_straight(only_suit_cards)
+
+    @staticmethod
+    def check_for_four_of_a_kind(hand: List[Card]):
+        return HandEvaluator.count_multiple(hand, lambda x: x >= 4)
