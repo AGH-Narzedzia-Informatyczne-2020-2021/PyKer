@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 
-from card import Card, Suit
+from card import Card, Suit, Rank
 from hand_evaluation.evaluation import Evaluation
 from hand_evaluation.handquickevaluation import HandQuickEvaluation
 
@@ -31,6 +31,9 @@ class HandEvaluator:
 
         if HandEvaluator.check_for_four_of_a_kind(hand):
             quick_eval = HandQuickEvaluation.FOUR_OF_A_KIND
+
+        if HandEvaluator.check_for_royal_flush(hand):
+            quick_eval = HandQuickEvaluation.ROYAL_FLUSH
 
         return Evaluation(quick_eval, hand)
 
@@ -79,7 +82,7 @@ class HandEvaluator:
         return streak == 5
 
     @staticmethod
-    def check_for_flush(hand: List[Card]) -> bool:
+    def find_flush_suit(hand) -> Optional[Suit]:
         suits = list(Suit)
         for suit in suits:
             suit_count = 0
@@ -88,9 +91,12 @@ class HandEvaluator:
                     suit_count += 1
 
             if suit_count == 5:
-                return True
+                return suit
+        return None
 
-        return False
+    @staticmethod
+    def check_for_flush(hand: List[Card]) -> bool:
+        return HandEvaluator.find_flush_suit(hand) is not None
 
     @staticmethod
     def check_for_straight_flush(hand: List[Card]) -> bool:
@@ -108,3 +114,16 @@ class HandEvaluator:
     @staticmethod
     def check_for_four_of_a_kind(hand: List[Card]):
         return HandEvaluator.count_multiple(hand, lambda x: x >= 4)
+
+    @staticmethod
+    def check_for_royal_flush(hand: List[Card]) -> bool:
+        if not HandEvaluator.check_for_straight_flush(hand):
+            return False
+        color = HandEvaluator.find_flush_suit(hand)
+        filtered_cards = list(filter(lambda x: x.suit == color, hand))
+        is_straight_flush = HandEvaluator.check_for_straight_flush(filtered_cards)
+        contains_ace = len(list(filter(lambda x: x.rank == Rank.ACE, filtered_cards))) > 0
+        if is_straight_flush and contains_ace:
+            return True
+        else:
+            return False

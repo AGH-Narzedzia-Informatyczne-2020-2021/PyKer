@@ -48,13 +48,20 @@ class MyTestCase(unittest.TestCase):
     def test_check_if_not_flush(self):
         self.assertFalse(HandEvaluator.check_for_flush(straight))
 
-    def test_find_royal_flush(self):
-        self.assertTrue(HandEvaluator.check_for_straight_flush(straight_flush))
-
     # Four of a kind
     def test_find_four_of_a_kind(self):
         hand = list_to_cards(['Ah', 'Ad', 'Ac', 'As', 'Ks', '9s', '2h'])
         self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.FOUR_OF_A_KIND)
+
+    # Straight Flush
+    def test_find_straight_flush(self):
+        hand = list_to_cards(['Qh', 'Jh', '10h', '9h', '8h', '4c', 'Qs'])
+        self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.STRAIGHT_FLUSH)
+
+    # Royal Flush
+    def test_find_royal_flush(self):
+        hand = list_to_cards(['Ah', 'Kh', 'Qh', 'Jh', '10h', '7c', '3s'])
+        self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.ROYAL_FLUSH)
 
 
 if __name__ == '__main__':
