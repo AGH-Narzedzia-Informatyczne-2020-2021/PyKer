@@ -2,14 +2,38 @@ from typing import List
 
 from card import Card, Suit
 from hand_evaluation.evaluation import Evaluation
+from hand_evaluation.handquickevaluation import HandQuickEvaluation
 
 
 class HandEvaluator:
 
     @staticmethod
     def value_hand(hand: List[Card]) -> Evaluation:
-        # TODO
-        return 0
+        quick_eval = HandQuickEvaluation.HIGH_CARD
+
+        if HandEvaluator.check_for_pair(hand):
+            quick_eval = HandQuickEvaluation.ONE_PAIR
+
+        if HandEvaluator.check_for_straight(hand):
+            quick_eval = HandQuickEvaluation.STRAIGHT
+
+        if HandEvaluator.check_for_flush(hand):
+            quick_eval = HandQuickEvaluation.FLUSH
+
+        if HandEvaluator.check_for_straight_flush(hand):
+            quick_eval = HandQuickEvaluation.STRAIGHT_FLUSH
+
+        return Evaluation(quick_eval, hand)
+
+    @staticmethod
+    def check_for_pair(hand: List[Card]):
+        counts = {}
+        for card in hand:
+            if not counts.__contains__(card.rank):
+                counts[card.rank] = 0
+            counts[card.rank] += 1
+
+        return len(list(filter(lambda x: x >= 2, counts.values()))) > 0
 
     @staticmethod
     def check_for_straight(hand: List[Card]) -> bool:
