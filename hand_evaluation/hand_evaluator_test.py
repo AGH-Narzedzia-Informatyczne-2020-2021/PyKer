@@ -48,6 +48,11 @@ class MyTestCase(unittest.TestCase):
     def test_check_if_not_flush(self):
         self.assertFalse(HandEvaluator.check_for_flush(straight))
 
+    # Full House
+    def test_full_house(self):
+        hand = list_to_cards(['Ah', 'Ac', '10h', '10c', '10s', '5h', '9c'])
+        self.assertEqual(HandEvaluator.value_hand(hand).quick_eval, HandQuickEvaluation.FULL_HOUSE)
+
     # Four of a kind
     def test_find_four_of_a_kind(self):
         hand = list_to_cards(['Ah', 'Ad', 'Ac', 'As', 'Ks', '9s', '2h'])

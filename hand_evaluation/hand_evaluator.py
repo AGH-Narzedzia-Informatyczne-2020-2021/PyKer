@@ -26,6 +26,9 @@ class HandEvaluator:
         if HandEvaluator.check_for_flush(hand):
             quick_eval = HandQuickEvaluation.FLUSH
 
+        if HandEvaluator.check_for_full_house(hand):
+            quick_eval = HandQuickEvaluation.FULL_HOUSE
+
         if HandEvaluator.check_for_four_of_a_kind(hand):
             quick_eval = HandQuickEvaluation.FOUR_OF_A_KIND
 
@@ -38,12 +41,23 @@ class HandEvaluator:
         return Evaluation(quick_eval, hand)
 
     @staticmethod
-    def count_multiple(hand, filter_method):
+    def _group_by_rank(hand):
         counts = {}
         for card in hand:
             if not counts.__contains__(card.rank):
                 counts[card.rank] = 0
             counts[card.rank] += 1
+        return counts
+
+    @staticmethod
+    def _get_threes(hand) -> List[Rank]:
+        grouped = HandEvaluator._group_by_rank(hand)
+        threes = {key for (key, value) in grouped.items() if value == 3}
+        return list(threes)
+
+    @staticmethod
+    def count_multiple(hand, filter_method):
+        counts = HandEvaluator._group_by_rank(hand)
         pair_count = len(list(filter(filter_method, counts.values())))
         return pair_count
 
@@ -97,6 +111,15 @@ class HandEvaluator:
     @staticmethod
     def check_for_flush(hand: List[Card]) -> bool:
         return HandEvaluator.find_flush_suit(hand) is not None
+
+    @staticmethod
+    def check_for_full_house(hand: List[Card]) -> bool:
+        threes = HandEvaluator._get_threes(hand)
+        if len(threes) == 0:
+            return False
+
+        without_first_three = list(filter(lambda x: x.rank != threes[0], hand))
+        return HandEvaluator.check_for_pair(without_first_three)
 
     @staticmethod
     def check_for_straight_flush(hand: List[Card]) -> bool:
