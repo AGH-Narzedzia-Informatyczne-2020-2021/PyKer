@@ -1,7 +1,6 @@
 import unittest
 
 from card import *
-from hand_evaluation.handquickevaluation import HandQuickEvaluation
 from hand_evaluation.hand_evaluator import HandEvaluator
 
 
@@ -12,8 +11,8 @@ class MyTestCase(unittest.TestCase):
     # Pair
 
     def test_pair_is_equal(self):
-        hand_one = [Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.TEN)]
-        hand_two = [Card(Suit.CLUBS, Rank.TEN), Card(Suit.DIAMONDS, Rank.TEN)]
+        hand_one = list_to_cards(['10h', '10s'])
+        hand_two = list_to_cards(['10c', '10d'])
         self.assertEqual(HandEvaluator.value_hand(hand_one), HandEvaluator.value_hand(hand_two))
 
     # Two Pair
