@@ -26,11 +26,11 @@ class HandEvaluator:
         if HandEvaluator.check_for_flush(hand):
             quick_eval = HandQuickEvaluation.FLUSH
 
-        if HandEvaluator.check_for_straight_flush(hand):
-            quick_eval = HandQuickEvaluation.STRAIGHT_FLUSH
-
         if HandEvaluator.check_for_four_of_a_kind(hand):
             quick_eval = HandQuickEvaluation.FOUR_OF_A_KIND
+
+        if HandEvaluator.check_for_straight_flush(hand):
+            quick_eval = HandQuickEvaluation.STRAIGHT_FLUSH
 
         if HandEvaluator.check_for_royal_flush(hand):
             quick_eval = HandQuickEvaluation.ROYAL_FLUSH
