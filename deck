@@ -1,0 +1,29 @@
+from card import Card, Suit, Rank
+import random
+
+class Deck():
+
+    def __init__(self):
+        self.cards = []
+        self.create_deck()
+
+    def create_deck(self):
+        for i in range(0, 4):
+            for j in range(2, 15):
+                self.cards.append(Card(Suit(i), Rank(j)))
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def top(self):
+        return self.cards.pop()
+
+
+
+
+
+
+
+
+
+
