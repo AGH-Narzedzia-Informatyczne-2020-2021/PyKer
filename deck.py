@@ -1,13 +1,14 @@
 from card import Card, Suit, Rank
 import random
 
-class Deck():
+
+class Deck:
 
     def __init__(self):
         self.cards = []
-        self.create_deck()
+        self._create_deck()
 
-    def create_deck(self):
+    def _create_deck(self):
         for i in range(0, 4):
             for j in range(2, 15):
                 self.cards.append(Card(Suit(i), Rank(j)))
@@ -17,13 +18,3 @@ class Deck():
 
     def top(self):
         return self.cards.pop()
-
-
-
-
-
-
-
-
-
-
