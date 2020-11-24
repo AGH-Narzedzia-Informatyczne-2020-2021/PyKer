@@ -4,6 +4,6 @@ class Player:
         self.money = 100
 
         
-class Bot:
+class Boty:
     def __init__(self):
         self.name = input("Wprowadz imie bota: ") #do zrobienia dynamiczną numeracje przy wpisywaniu
