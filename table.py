@@ -69,6 +69,7 @@ class Table:
         print('This round winners: ', end='')
         for winner in players_with_max_eval:
             print(str(winner))
+            print('winning suit: ' + str(evaluations[winner].quick_eval).split(sep='.')[1])
         exit(0)
 
     @staticmethod
