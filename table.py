@@ -82,6 +82,7 @@ class Table:
                 players_with_max_eval.append(player)
 
             if evaluation.quick_eval.value > max_eval.value:
+                max_eval = evaluation.quick_eval
                 players_with_max_eval.clear()
                 players_with_max_eval.append(player)
         return players_with_max_eval
