@@ -46,10 +46,15 @@ class Player(Participant, ABC):
 
     def make_a_choice(self, table_state: List[Card]) -> str:
         choice = ""
-        # while choice not in ['H', 'P']:
-        #    choice = input("Choose to [H]old or [P]ass\n")
+        while choice not in ['H', 'P']:
+            print('Table cards are: ', end='')
+            print(*table_state)
 
-        return 'H'
+            print('Your cards are: ', end='')
+            print(*self._cards)
+            choice = input("Choose to [H]old or [P]ass\n")
+
+        return choice
 
 
 class Bot(Participant, ABC):
