@@ -50,7 +50,7 @@ class Player(Participant, ABC):
             print('Table cards are: ', end='')
             print(*table_state)
 
-            print('Your cards are: ', end='')
+            print(self.name + ', your cards are: ', end='')
             print(*self._cards)
             choice = input("Choose to [H]old or [P]ass\n")
 
