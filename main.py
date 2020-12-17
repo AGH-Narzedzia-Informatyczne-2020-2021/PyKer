@@ -1,6 +1,15 @@
-from card import *
+from deck import Deck
+from sequence_of_functions.player_class import Player
+from table import Table
 
-card = Card(Suit.HEARTS, Rank.TEN)
-print(card)
-=======
+if __name__ == '__main__':
+    deck = Deck()
+    deck.shuffle()
 
+    players = [Player('asdf'), Player('zcvz')]
+
+    table = Table(players=players, deck=deck)
+    table.initialize_game()
+
+    while len(table.cards) <= 5:
+        table.play_a_round()
